@@ -51,9 +51,8 @@ fun main () {
 - Custom vert and frag shaders
 
 # TODO
-? = being worked on, X = Not implemented, ✅ = completed
 
-- Texture support + Sprite rendering from png - [?]
-- Pre defined meshes for simple operations - [?]
-- Camera system - [X]
-- 3d renderer + stl/obj file loading [X]
+- [ ] Texture support + Sprite rendering from png 
+- [ ] Pre defined meshes for simple operations 
+- [ ] Camera system 
+- [ ] 3d renderer + stl/obj file loading 
