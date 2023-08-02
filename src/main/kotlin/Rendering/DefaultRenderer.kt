@@ -41,16 +41,7 @@ class DefaultRenderer(Mesh : Mesh) : Renderer() {
         }
         glValidateProgram(shader)
 
-
         println("Shader Initilization Succesful")
-    }
-    private fun sb (bind : Boolean) {
-                if(bind) {
-                    glUseProgram(shader)
-                }
-                else if(!bind) {
-                    glUseProgram(0)
-                }
     }
     override fun draw() {
             glBindVertexArray(mesh.vAO);
