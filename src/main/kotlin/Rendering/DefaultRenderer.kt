@@ -1,11 +1,8 @@
 package Rendering
-import org.lwjgl.BufferUtils
 import org.lwjgl.opengl.GL46.*
-import org.lwjgl.opengl.GL
-import java.nio.IntBuffer
 import java.nio.charset.Charset
 
-class Renderer3D(Mesh : Mesh) : Renderer() {
+class DefaultRenderer(Mesh : Mesh) : Renderer() {
     var mesh = Mesh
     override fun init() {
         mesh.create()
