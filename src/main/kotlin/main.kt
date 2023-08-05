@@ -1,6 +1,7 @@
 import Rendering.*
 import org.joml.Vector2i
 import org.joml.Vector3f
+import org.joml.Vector4f
 import org.lwjgl.glfw.GLFW.*
 import org.lwjgl.opengl.GL
 import org.lwjgl.opengl.GL11.GL_LINEAR
@@ -21,9 +22,8 @@ fun main () {
             0,1,2,
             0,3,2
         ),
-        c2MA(hex2rgb("#4E12EB"), hex2rgb("#FF12EB"),hex2rgb("#4E12EB"),hex2rgb("#4E12EB"))
+        c2MA(hex2rgb("#FF0000"), hex2rgb("#00FF00"),hex2rgb("#0000FF"),hex2rgb("#FFFFFFFF")),
     )
-    println(TextureMapping.loadTexturefromPng("./res/Testingimgs/test.png"))
     val renderer = DefaultRenderer(mesh)
     renderer.init()
     while(!glfwWindowShouldClose(win.window)) {

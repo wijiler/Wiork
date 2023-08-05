@@ -6,11 +6,12 @@ import org.lwjgl.BufferUtils
 import org.lwjgl.opengl.GL46.*
 import org.lwjgl.system.MemoryUtil
 import java.io.Serializable
+import java.nio.ByteBuffer
 import java.nio.FloatBuffer
 import java.nio.IntBuffer
 
 
-class Vertex(val position: Vector3f): Serializable { var color : Vector4f = Vector4f() }
+class Vertex(val position: Vector3f): Serializable
 
 
 class Mesh(val vertices: Array<Vertex>, val indices: IntArray,val color: Array<Float>) {
@@ -38,7 +39,7 @@ class Mesh(val vertices: Array<Vertex>, val indices: IntArray,val color: Array<F
         glBufferData(GL_ARRAY_BUFFER, positionBuffer, GL_STATIC_DRAW)
 
         glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0)
-        glVertexAttribPointer(1,4, GL_FLOAT,false,190,12)
+        glVertexAttribPointer(1,4, GL_FLOAT,false,0,0)
         glBindBuffer(GL_ARRAY_BUFFER, 0)
         val indicesBuffer = MemoryUtil.memAllocInt(indices.size)
         indicesBuffer.put(indices).flip()
@@ -50,16 +51,32 @@ class Mesh(val vertices: Array<Vertex>, val indices: IntArray,val color: Array<F
             colorBuf.put(i)
         }
         colorBuf.flip()
-        val cBO = storeData(colorBuf,1,4)
-        glBindBuffer(GL_ARRAY_BUFFER,cBO)
-        glBufferData(GL_ARRAY_BUFFER,colorBuf, GL_STATIC_DRAW)
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0)
+        cBO = storeData(colorBuf,1,4)
     }
-
+    // overloads
     private fun storeData(buffer: FloatBuffer, index: Int, size: Int): Int {
         val bufferID = glGenBuffers()
         glBindBuffer(GL_ARRAY_BUFFER, bufferID)
         glBufferData(GL_ARRAY_BUFFER, buffer, GL_STATIC_DRAW)
+        glVertexAttribPointer(index, size, GL_FLOAT, false, 0, 0)
+        glBindBuffer(GL_ARRAY_BUFFER, 0)
+        return bufferID
+    }
+    private fun storeData(buffer: IntBuffer, index: Int, size: Int): Int {
+        val bufferID = glGenBuffers()
+        glBindBuffer(GL_ARRAY_BUFFER, bufferID)
+        glBufferData(GL_ARRAY_BUFFER, buffer, GL_STATIC_DRAW)
+        glVertexAttribPointer(index, size, GL_FLOAT, false, 0, 0)
+        glBindBuffer(GL_ARRAY_BUFFER, 0)
+        return bufferID
+    }
+    private fun storeData(buffer: Int, index: Int, size: Int): Int {
+        val bufferID = glGenBuffers()
+        glBindBuffer(GL_ARRAY_BUFFER, bufferID)
+        val buffert = BufferUtils.createIntBuffer(1)
+        buffert.put(buffer)
+        buffert.flip()
+        glBufferData(GL_ARRAY_BUFFER, buffert, GL_STATIC_DRAW)
         glVertexAttribPointer(index, size, GL_FLOAT, false, 0, 0)
         glBindBuffer(GL_ARRAY_BUFFER, 0)
         return bufferID

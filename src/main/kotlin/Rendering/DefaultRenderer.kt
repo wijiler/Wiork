@@ -45,7 +45,7 @@ class DefaultRenderer(Mesh : Mesh) : Renderer() {
     }
     override fun draw() {
             glBindVertexArray(mesh.vAO);
-            glEnableVertexAttribArray(0);
+            glEnableVertexAttribArray(0)
             glEnableVertexAttribArray(1)
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.iBO);
             glUseProgram(shader)
