@@ -1,6 +1,7 @@
 package Rendering
 
 import Memory
+import org.joml.Vector2f
 import org.joml.Vector3f
 import org.lwjgl.BufferUtils
 import org.lwjgl.opengl.GL
@@ -10,7 +11,7 @@ import java.nio.file.Files
 import java.nio.file.Paths
 
 open class Renderer {
-    val vertsize = Memory.sizeOf(Vertex(Vector3f(0f,0f,0f)))
+    val vertsize = Memory.sizeOf(Vertex(Vector3f(),Vector2f()))
     var vao = BufferUtils.createIntBuffer(1)
     var vbo = BufferUtils.createIntBuffer(1)
     protected var fshader : Int = 0

@@ -1,20 +1,20 @@
 package Rendering
 
+import org.joml.Vector2f
 import org.joml.Vector3f
 import org.joml.Vector4f
 import org.lwjgl.BufferUtils
 import org.lwjgl.opengl.GL46.*
 import org.lwjgl.system.MemoryUtil
 import java.io.Serializable
-import java.nio.ByteBuffer
 import java.nio.FloatBuffer
 import java.nio.IntBuffer
 
 
-class Vertex(val position: Vector3f): Serializable
+class Vertex(val position: Vector3f,val uvCoord : Vector2f): Serializable
 
 
-class Mesh(val vertices: Array<Vertex>, val indices: IntArray,val color: Array<Float>) {
+class Mesh(val vertices: Array<Vertex>, val indices: IntArray, val color: Array<Float>, val texture:Material) {
     var vAO = 0
         private set
     var pBO = 0
@@ -22,6 +22,8 @@ class Mesh(val vertices: Array<Vertex>, val indices: IntArray,val color: Array<F
     var iBO = 0
         private set
     var cBO = 0
+        private set
+    var tBO = 0
         private set
     fun create() {
         vAO = glGenVertexArrays()
@@ -52,6 +54,16 @@ class Mesh(val vertices: Array<Vertex>, val indices: IntArray,val color: Array<F
         }
         colorBuf.flip()
         cBO = storeData(colorBuf,1,4)
+        // TODO: Soon implement tBO
+        val textureBuffer = MemoryUtil.memAllocFloat(vertices.size * 2)
+        val textureData = FloatArray(vertices.size * 2)
+        for (i in 0 until vertices.size) {
+            textureData[i * 2] = vertices[i].uvCoord.x
+            textureData[i * 2 + 1] = vertices[i].uvCoord.y
+        }
+        textureBuffer.put(textureData).flip()
+        tBO = storeData(textureBuffer,2,2)
+        texture.load()
     }
     // overloads
     private fun storeData(buffer: FloatBuffer, index: Int, size: Int): Int {
@@ -59,6 +71,14 @@ class Mesh(val vertices: Array<Vertex>, val indices: IntArray,val color: Array<F
         glBindBuffer(GL_ARRAY_BUFFER, bufferID)
         glBufferData(GL_ARRAY_BUFFER, buffer, GL_STATIC_DRAW)
         glVertexAttribPointer(index, size, GL_FLOAT, false, 0, 0)
+        glBindBuffer(GL_ARRAY_BUFFER, 0)
+        return bufferID
+    }
+    private fun storetData(buffer: FloatBuffer, index: Int, size: Int): Int {
+        val bufferID = glGenBuffers()
+        glBindBuffer(GL_ARRAY_BUFFER, bufferID)
+        glBufferData(GL_ARRAY_BUFFER, buffer, GL_STATIC_DRAW)
+        glVertexAttribPointer(index, size, GL_FLOAT, false, 32, 24)
         glBindBuffer(GL_ARRAY_BUFFER, 0)
         return bufferID
     }
@@ -82,7 +102,13 @@ class Mesh(val vertices: Array<Vertex>, val indices: IntArray,val color: Array<F
         return bufferID
     }
 }
-
+fun ArrayToFBuffer(arr : Array<Float>): FloatBuffer {
+    val buff = BufferUtils.createFloatBuffer(arr.size)
+    for(f in arr) {
+        buff.put(f)
+    }
+    return buff
+}
 private fun rgb2decimal (rgba: Vector4f): Vector4f {
         return Vector4f(rgba.x / 255,rgba.y / 255,rgba.z / 255,rgba.w / 255)
 }

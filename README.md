@@ -59,7 +59,7 @@ if you're using gradle to build add this as a dependency as well
 If you use Eclipse in 2023 thats a fucking you problem ngl
 # TODO
 
-- [ ] Texture support + Sprite rendering from png (half done)
+- [x] Texture support + Sprite rendering from png
 - [ ] Pre defined meshes for simple operations 
 - [ ] Hot code reloading (game logic get turned into some sort of file that can be used at runtime (ex. dll) and when dll changes reload the code)
 - [ ] Camera system 
