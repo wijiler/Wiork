@@ -24,13 +24,13 @@ fun main () {
             0,1,2,
             0,3,2
         ),
-        c2MA(hex2rgb("#FFFFFFFF"), hex2rgb("#FFFFFFFF"),hex2rgb("#FFFFFFFF"),hex2rgb("#FFFFFFFF")),
+        c2MA(hex2rgb("#FF0000"), hex2rgb("#FF0000"),hex2rgb("#FF0000"),hex2rgb("#FF0000")),
         material
     )
     val renderer = DefaultRenderer(mesh)
     renderer.init()
     while(!glfwWindowShouldClose(win.window)) {
-       // GL.createCapabilities()
+        GL.createCapabilities()
         renderer.draw()
         glfwSwapBuffers(win.window)
         glfwPollEvents()
