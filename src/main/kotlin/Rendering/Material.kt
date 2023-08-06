@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL46.*
 import java.nio.FloatBuffer
 
 class Material(ImagePath: String) {
+
     var w = BufferUtils.createIntBuffer(1); var h = BufferUtils.createIntBuffer(1);var channels = BufferUtils.createIntBuffer(1);
     var texture = 0
         private set
@@ -31,5 +32,17 @@ class Material(ImagePath: String) {
             glGenerateMipmap(GL_TEXTURE_2D)
         }
         stbi_image_free(data)
+    }
+    fun whiteMat () : Int {
+        val image = BufferUtils.createIntBuffer(4)
+        image.put(255).put(255).put(255).put(255).flip()
+        val wtex = glGenTextures()
+        glBindTexture(GL_TEXTURE_2D, wtex);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        return wtex
     }
 }
