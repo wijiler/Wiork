@@ -14,7 +14,7 @@ import java.nio.IntBuffer
 class Vertex(val position: Vector3f,val uvCoord : Vector2f): Serializable
 
 
-class Mesh(val vertices: Array<Vertex>, val indices: IntArray, val color: Array<Float>, val texture:Material) {
+open class Mesh(val vertices: Array<Vertex>, val indices: IntArray, val color: Array<Float>, val texture:Material) {
     var vAO = 0
         private set
     var pBO = 0

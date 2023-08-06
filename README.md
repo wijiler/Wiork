@@ -8,28 +8,23 @@
 
 ### Here's an example program for drawing a colored square
 ```kotlin
+import Rendering.*
+import org.joml.Vector2f
+import org.joml.Vector2i
+import org.lwjgl.glfw.GLFW.*
+import org.lwjgl.opengl.GL
+
+
 fun main () {
     val win = Window("WiorkTestApp",480,600)
     val WH = Vector2i(win.w,win.h)
     win.run()
     val material = Material("./res/Testingimgs/frogs.png")
-    val mesh = Mesh(
-        arrayOf(
-            Vertex(Vector3f(-0.5f, 0.5f, 0.0f), Vector2f(1.0f,1.0f)),
-            Vertex(Vector3f(-0.5f, -0.5f, 0.0f),Vector2f(1.0f,0.0f)),
-            Vertex(Vector3f(0.5f, -0.5f, 0.0f), Vector2f(0.0f,0.0f)),
-            Vertex(Vector3f(0.5f, 0.5f, 0.0f), Vector2f(0.0f,1.0f))
-        ), intArrayOf(
-            0,1,2,
-            0,3,2
-        ),
-        c2MA(hex2rgb("#FFFFFFFF"), hex2rgb("#FFFFFFFF"),hex2rgb("#FFFFFFFF"),hex2rgb("#FFFFFFFF")),
-        material
-    )
+    val mesh = Primitives.Rectangle(Vector2f(0.5f,0.5f),material, c2MA(hex2rgb("#FFFFFF"),hex2rgb("#FFFFFF"),hex2rgb("#FFFFFF"),hex2rgb("#FFFFFF")))
     val renderer = DefaultRenderer(mesh)
     renderer.init()
     while(!glfwWindowShouldClose(win.window)) {
-        // GL.createCapabilities()
+        GL.createCapabilities()
         renderer.draw()
         glfwSwapBuffers(win.window)
         glfwPollEvents()
@@ -55,7 +50,8 @@ If you use Eclipse in 2023 thats a fucking you problem ngl
 # TODO
 
 - [x] Texture support + Sprite rendering from png
-- [ ] Pre defined meshes for simple operations 
+- [X] Pre defined meshes for simple operations 
+- [ ] Font rendering
 - [ ] Hot code reloading (game logic get turned into some sort of file that can be used at runtime (ex. dll) and when dll changes reload the code)
 - [ ] Camera system 
 - [ ] 3d renderer + stl/obj file loading
