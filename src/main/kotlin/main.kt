@@ -13,7 +13,7 @@ fun main () {
     val win = Window("WiorkTestApp",480,600)
     val WH = Vector2i(win.w,win.h)
     win.run()
-    val material = Material("./res/Testingimgs/test.png")
+    val material = Material("./res/Testingimgs/frogs.png")
     val mesh = Mesh(
         arrayOf(
             Vertex(Vector3f(-0.5f, 0.5f, 0.0f), Vector2f(1.0f,1.0f)),
