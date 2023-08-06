@@ -9,7 +9,7 @@ import  org.lwjgl.glfw.GLFW.*;
 import  org.lwjgl.opengl.GL46C.*;
 import  org.lwjgl.system.MemoryStack.*;
 import  org.lwjgl.system.MemoryUtil.*;
-class Window(Name: String,Height : Int,Width : Int) {
+class Window(Name: String,Height : Int,Width : Int,val Resize:Boolean) {
     // The window handle
     var window: Long = 0
     private val n = Name
@@ -18,8 +18,6 @@ class Window(Name: String,Height : Int,Width : Int) {
     fun run() {
         println("Hello LWJGL " + Version.getVersion() + "!")
         init()
-
-
     }
     fun terminate () {
         // Free the window callbacks and destroy the window
@@ -74,7 +72,6 @@ class Window(Name: String,Height : Int,Width : Int) {
                 (vidmode.height() - pHeight[0]) / 2
             )
         }
-
         // Make the OpenGL context current
         glfwMakeContextCurrent(window)
         // Enable v-sync
@@ -82,5 +79,18 @@ class Window(Name: String,Height : Int,Width : Int) {
         GL.createCapabilities()
         // Make the window visible
         glfwShowWindow(window)
+    }
+    fun resize() {
+        if(Resize) {
+            stackPush().use { stack ->
+                val pWidth = stack.mallocInt(1) // int*
+                val pHeight = stack.mallocInt(1) // int*
+
+                // Get the window size passed to glfwCreateWindow
+                glfwGetWindowSize(window, pWidth, pHeight)
+
+                glViewport(0, 0, pWidth[0], pHeight[0])
+            }
+        }
     }
 }

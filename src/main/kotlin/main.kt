@@ -6,7 +6,7 @@ import org.lwjgl.opengl.GL
 
 
 fun main () {
-    val win = Window("WiorkTestApp",480,600)
+    val win = Window("WiorkTestApp",480,600,Resize = false)
     val WH = Vector2i(win.w,win.h)
     win.run()
     val material = Material("./res/Testingimgs/frogs.png")
@@ -15,9 +15,9 @@ fun main () {
     renderer.init()
     while(!glfwWindowShouldClose(win.window)) {
         GL.createCapabilities()
+        win.resize()
         renderer.draw()
         glfwSwapBuffers(win.window)
         glfwPollEvents()
-
     }
 }
