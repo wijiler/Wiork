@@ -53,7 +53,6 @@ open class Mesh(val vertices: Array<Vertex>, val indices: IntArray, val color: A
         }
         colorBuf.flip()
         cBO = storeData(colorBuf,1,4)
-        // TODO: Soon implement tBO
         val textureBuffer = MemoryUtil.memAllocFloat(vertices.size * 2)
         val textureData = FloatArray(vertices.size * 2)
         for (i in 0 until vertices.size) {

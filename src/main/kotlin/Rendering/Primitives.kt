@@ -15,9 +15,6 @@ object Primitives {
     ),
         Color,
         Texture)
-    {
-
-    }
     class Triangle(var Points:Vector2f,Texture:Material,Color : Array<Float>) : Mesh(arrayOf(
         Vertex(Vector3f(-Points.x, Points.y, 0.0f), Vector2f(1.0f,1.0f)),
         Vertex(Vector3f(-Points.x, -Points.y, 0.0f),Vector2f(1.0f,0.0f)),
