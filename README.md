@@ -50,8 +50,8 @@ If you use Eclipse in 2023 thats a fucking you problem ngl
 # TODO
 
 - [x] Texture support + Sprite rendering from png
-- [X] Pre defined meshes for simple operations 
+- [X] Pre defined meshes for simple operations
+- [ ] Camera system 
 - [ ] Font rendering
 - [ ] Hot code reloading (game logic get turned into some sort of file that can be used at runtime (ex. dll) and when dll changes reload the code)
-- [ ] Camera system 
 - [ ] 3d renderer + stl/obj file loading

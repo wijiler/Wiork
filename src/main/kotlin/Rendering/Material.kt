@@ -33,9 +33,9 @@ class Material(ImagePath: String) {
         }
         stbi_image_free(data)
     }
-    fun whiteMat () : Int {
-        val image = BufferUtils.createIntBuffer(4)
-        image.put(255).put(255).put(255).put(255).flip()
+    fun whiteMat () {
+        val image = BufferUtils.createIntBuffer(3)
+        image.put(255).put(255).put(255).flip()
         val wtex = glGenTextures()
         glBindTexture(GL_TEXTURE_2D, wtex);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
@@ -43,6 +43,5 @@ class Material(ImagePath: String) {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        return wtex
     }
 }

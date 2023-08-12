@@ -4,8 +4,6 @@ import Memory
 import org.joml.Vector2f
 import org.joml.Vector3f
 import org.lwjgl.BufferUtils
-import org.lwjgl.opengl.GL
-import org.lwjgl.opengl.GL46.*
 import java.nio.charset.Charset
 import java.nio.file.Files
 import java.nio.file.Paths

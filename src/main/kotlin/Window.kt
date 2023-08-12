@@ -6,10 +6,12 @@ import java.nio.*;
 
 import  org.lwjgl.glfw.Callbacks.*;
 import  org.lwjgl.glfw.GLFW.*;
+import org.lwjgl.opengl.GL11.GL_PROJECTION
+import org.lwjgl.opengl.GL11.glMatrixMode
 import  org.lwjgl.opengl.GL46C.*;
 import  org.lwjgl.system.MemoryStack.*;
 import  org.lwjgl.system.MemoryUtil.*;
-class Window(Name: String,Height : Int,Width : Int,val Resize:Boolean) {
+class Window(Name: String,Height : Int,Width : Int,val Resize:Boolean,var WireFrame : Boolean) {
     // The window handle
     var window: Long = 0
     private val n = Name
@@ -45,7 +47,6 @@ class Window(Name: String,Height : Int,Width : Int,val Resize:Boolean) {
         // Create the window
         window = glfwCreateWindow(w, h, n, NULL, NULL)
         if (window == NULL) throw RuntimeException("Failed to create the GLFW window")
-
         // Setup a key callback. It will be called every time a key is pressed, repeated or released.
         glfwSetKeyCallback(
             window
@@ -53,7 +54,11 @@ class Window(Name: String,Height : Int,Width : Int,val Resize:Boolean) {
             if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE) glfwSetWindowShouldClose(
                 window,
                 true
-            ) // We will detect this in the rendering loop
+            )
+            if (key == GLFW_KEY_TAB && action == GLFW_RELEASE) {
+                WireFrame = !WireFrame
+            }
+        // We will detect this in the rendering loop
         }
         stackPush().use { stack ->
             val pWidth = stack.mallocInt(1) // int*
@@ -88,8 +93,8 @@ class Window(Name: String,Height : Int,Width : Int,val Resize:Boolean) {
 
                 // Get the window size passed to glfwCreateWindow
                 glfwGetWindowSize(window, pWidth, pHeight)
-
                 glViewport(0, 0, pWidth[0], pHeight[0])
+                glMatrixMode( GL_PROJECTION );
             }
         }
     }

@@ -24,7 +24,6 @@ open class Mesh(val vertices: Array<Vertex>, val indices: IntArray, val color: A
     var cBO = 0
         private set
     var tBO = 0
-        private set
     fun create() {
         vAO = glGenVertexArrays()
         glBindVertexArray(vAO)

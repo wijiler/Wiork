@@ -43,6 +43,19 @@ class DefaultRenderer(Mesh : Mesh) : Renderer() {
 
         println("Shader Initilization Succesful")
     }
+    fun wireframe(on:Boolean) {
+        if(on) {
+            glClearColor(0.0f, 0.0f, 0.0f, 1.0f)
+            glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT)
+            glPolygonMode(GL_FRONT, GL_LINE);
+            glPolygonMode(GL_BACK, GL_LINE);
+            mesh.texture.whiteMat()
+        }
+        else {
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
+            mesh.texture.load()
+        }
+    }
     override fun draw() {
             glBindVertexArray(mesh.vAO);
             glEnableVertexAttribArray(0)
